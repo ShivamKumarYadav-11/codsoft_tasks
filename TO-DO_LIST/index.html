@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#16130E" />
+    <title>The Day Ledger — Task Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="app">
+        <header class="masthead">
+            <div class="masthead-top">
+                <span id="dateLine">—</span>
+                <span id="clock">—</span>
+            </div>
+            <div class="masthead-main">
+                <div>
+                    <h1 class="title"><em>Today&rsquo;s</em><br>Ledger<span class="dot">.</span></h1>
+                    <p class="tagline">Settle the day&rsquo;s affairs, one line at a time.</p>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-label">Pending</span>
+                        <span class="stat-num" id="statPending">00</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Done</span>
+                        <span class="stat-num" id="statDone">00</span>
+                    </div>
+                    <div class="stat-side">
+                        <div class="stat-bar"><i id="statBar"></i></div>
+                        <div class="stat-side-row">
+                            <span class="settled-note" id="settledNote">All settled</span>
+                            <button class="link-btn" id="clearDone" type="button">Clear done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- new entry line -->
+        <form class="entry grid-line" id="entryForm" novalidate>
+            <span class="checkbox is-ghost" aria-hidden="true"></span>
+            <span class="lineno is-ghost" id="nextNo">001</span>
+            <div class="entry-field">
+                <input id="entryInput" type="text" autocomplete="off" spellcheck="false"
+                    placeholder="Write a task for today&hellip;" aria-label="New task" />
+            </div>
+            <span class="entry-count" id="entryCount"></span>
+            <button class="add-btn" type="submit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                    aria-hidden="true">
+                    <path d="M12 5v14" />
+                    <path d="M5 12h14" />
+                </svg>
+                <span>Add</span>
+            </button>
+        </form>
+        <p class="entry-error" id="entryError" role="alert"></p>
+
+        <!-- filters + search -->
+        <div class="controls">
+            <nav class="filters" id="filters" aria-label="Filter entries">
+                <span class="filter-ink" id="filterInk" aria-hidden="true"></span>
+                <button class="filter-btn is-active" type="button" data-filter="all">All</button>
+                <button class="filter-btn" type="button" data-filter="pending">Pending</button>
+                <button class="filter-btn" type="button" data-filter="done">Done</button>
+            </nav>
+            <div class="search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    aria-hidden="true">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m21 21-4.3-4.3" />
+                </svg>
+                <input id="searchInput" type="text" autocomplete="off" spellcheck="false" placeholder="Find an entry"
+                    aria-label="Search entries" />
+                <button class="search-clear" id="searchClear" type="button" hidden aria-label="Clear search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                        aria-hidden="true">
+                        <path d="M18 6 6 18" />
+                        <path d="m6 6 12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <p class="results-note" id="resultsNote"></p>
+
+        <!-- the ledger itself -->
+        <div class="ledger-wrap">
+            <div class="empty" id="emptyState" hidden></div>
+            <ul class="ledger" id="ledger"></ul>
+        </div>
+
+        <footer class="colophon">
+            <span id="storageNote">All entries are stored locally in this browser</span>
+            <span id="colophonCount"></span>
+        </footer>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">
+        <span id="toastMsg"></span>
+        <button id="toastUndo" type="button">Undo</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
